@@ -247,7 +247,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64, y: 159}
+  m_AnchoredPosition: {x: 16, y: 156}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &815478559
@@ -795,6 +795,7 @@ MonoBehaviour:
   food: {fileID: 8439134388041850244, guid: e89af4b11561e3247a994b48c07c0039, type: 3}
   foodTime: 10
   statsText: {fileID: 815478559}
+  mrCubePos: {fileID: 1988474517}
 --- !u!114 &1988474519
 MonoBehaviour:
   m_ObjectHideFlags: 0

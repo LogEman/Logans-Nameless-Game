@@ -8,7 +8,7 @@ public class MrNameLessCube : MonoBehaviour
     public float decreaseHealth = 50f;
     private float decreaseHealthCurrent = 0f;
     //reference to how long an action is done until hunger value is lowered
-    private float decreaseHungerCurrent = 0f;
+    public float decreaseHungerCurrent = 0f;
     public float decreaseHunger = 100f;
     //reference to spawnpoint
     public Vector3 spawnPoint;
@@ -85,12 +85,12 @@ public class MrNameLessCube : MonoBehaviour
         //Shows the stats of Mr.Nameless Cube on screen
         statsText.text = "Health: " + health.ToString() + " Hunger: " + hunger.ToString();
         //Kills Mr.Nameless Cube if he falls into the void
-        if (mrcube.transform.position.y < 1)
+        if (mrcube.position.y < 0)
         {
-            alive = false;
+            health = 0;
         }
         //tests if Mr.Nameless cube is still alive
-        if (health > 0) 
+        if (health > 0f) 
         {
             alive = true;
         }
@@ -123,7 +123,7 @@ public class MrNameLessCube : MonoBehaviour
             computerCheck = true;
             }
          //timer for summoning food objects
-        if (currentFoodTime > 0)
+        if (currentFoodTime > 0f)
         {
             --currentFoodTime;
             
@@ -245,19 +245,16 @@ public class MrNameLessCube : MonoBehaviour
         if (collisionInfo.collider.tag == "isFood")
         {
       //determines what to do with food
-            if (hunger == 20f && health < 20f)
+            if (hunger <= 20f && health < 20f)
             {
                 health++;
             }
-            else if(hunger >= 15)
-            {
-                hunger = maxHunger - hunger - 5;
-            }
             else
             {
-                hunger = hunger + 5;
+                hunger = hunger + maxHunger - hunger;
             }
-            if (hunger >= 20) {
+           
+            if (hunger <= 20) {
                 Destroy(collisionInfo.gameObject);           
             }
         }

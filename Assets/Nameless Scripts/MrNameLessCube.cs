@@ -51,7 +51,7 @@ public class MrNameLessCube : MonoBehaviour
     public Rigidbody mrcube;
     public Rigidbody food;
     //food generation timer
-    public float foodTime = 10f;
+    public float foodTime = 30f;
     private float currentFoodTime;
    
     // Start is called before the first frame update
@@ -74,7 +74,7 @@ public class MrNameLessCube : MonoBehaviour
         refreshGravity = true;
         //Initiating Mr.Nameless cube's health values
         health = 20f;
-        hunger = 20f;
+        hunger = 10f;
         alive = true;
     }
         // Update is called once per frame
@@ -242,15 +242,15 @@ public class MrNameLessCube : MonoBehaviour
             {
                 health++;
             }
-            else if(hunger >= 15)
+            else if(hunger >= 20)
             {
                 hunger = maxHunger - hunger + 5;
             }
             else
             {
-                hunger = hunger + 5;
+                hunger++;
             }
-            if (hunger < 20) {
+            if (hunger != 20) {
                 Destroy(collisionInfo.gameObject);
             }
         }

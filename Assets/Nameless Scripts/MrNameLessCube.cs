@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MrNameLessCube : MonoBehaviour
 {
     //reference to how long until hunger decreases health
@@ -13,10 +13,10 @@ public class MrNameLessCube : MonoBehaviour
     //reference to spawnpoint
     public Vector3 spawnPoint;
     //reference for health values and defaults
-    public float health = 20f;
-    public float hunger = 20f;
-    public float maxHunger = 20f;
-    public float maxHealth = 20f;
+    public float health = 21f;
+    public float hunger = 21f;
+    public float maxHunger = 21f;
+    public float maxHealth = 21f;
     public bool alive = true;
     //reference to refresh gravity bool and default value
     public bool refreshGravity = false;
@@ -51,9 +51,10 @@ public class MrNameLessCube : MonoBehaviour
     public Rigidbody mrcube;
     public Rigidbody food;
     //food generation timer
-    public float foodTime = 30f;
+    public float foodTime = 10f;
     private float currentFoodTime;
-   
+    //reference for the text UI element
+    public Text statsText;
     // Start is called before the first frame update
     void Start()
     {
@@ -73,13 +74,17 @@ public class MrNameLessCube : MonoBehaviour
         //Initiating the value of refresh gravity
         refreshGravity = true;
         //Initiating Mr.Nameless cube's health values
-        health = 20f;
-        hunger = 10f;
+        health = 21f;
+        hunger = 21f;
         alive = true;
+        
     }
         // Update is called once per frame
         void Update()
         {
+        //Shows the stats of Mr.Nameless Cube on screen
+        statsText.text = "Health: " + health.ToString() + " Hunger: " + hunger.ToString();
+        //Kills Mr.Nameless Cube if he falls into the void
         if (mrcube.transform.position.y < 1)
         {
             alive = false;
@@ -97,7 +102,8 @@ public class MrNameLessCube : MonoBehaviour
         {
             mrcube.position = spawnPoint;
             alive = true;
-            health = 20f;
+            health = 21f;
+            hunger = 21f;
         }
         //makes sure refresh gravity is only called once or when refreshed again
         if (refreshGravity) {
@@ -238,20 +244,21 @@ public class MrNameLessCube : MonoBehaviour
         }
         if (collisionInfo.collider.tag == "isFood")
         {
+      //determines what to do with food
             if (hunger == 20f && health < 20f)
             {
                 health++;
             }
-            else if(hunger >= 20)
+            else if(hunger >= 15)
             {
-                hunger = maxHunger - hunger + 5;
+                hunger = maxHunger - hunger - 5;
             }
             else
             {
-                hunger++;
+                hunger = hunger + 5;
             }
-            if (hunger != 20) {
-                Destroy(collisionInfo.gameObject);
+            if (hunger >= 20) {
+                Destroy(collisionInfo.gameObject);           
             }
         }
     }

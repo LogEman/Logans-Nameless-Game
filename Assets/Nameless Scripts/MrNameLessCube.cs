@@ -1,0 +1,258 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MrNameLessCube : MonoBehaviour
+{
+    //reference to how long until hunger decreases health
+    public float decreaseHealth = 50f;
+    private float decreaseHealthCurrent = 0f;
+    //reference to how long an action is done until hunger value is lowered
+    private float decreaseHungerCurrent = 0f;
+    public float decreaseHunger = 100f;
+    //reference to spawnpoint
+    public Vector3 spawnPoint;
+    //reference for health values and defaults
+    public float health = 20f;
+    public float hunger = 20f;
+    public float maxHunger = 20f;
+    public float maxHealth = 20f;
+    public bool alive = true;
+    //reference to refresh gravity bool and default value
+    public bool refreshGravity = false;
+    //reference to jump reset bool
+    private bool jumpReset;
+    //references gravity for Nameless Planet and weight for Mr.NameLess Cube
+    public float gravity = 1f;
+    public float weight = 1f;
+    private float gravityForce = 0f;
+    //references computercheck bool
+    private bool computerCheck;
+    //references for movement keys for Mr.Nameless Cube and their defaults and test bools for said keys
+    public string leftKey = "a";
+    private bool leftKeyPressed;
+    public string rightKey = "d";
+    private bool rightKeyPressed;
+    public string forwardKey = "w";
+    private bool forwardKeyPressed;
+    public string backwardKey = "s";
+    private bool backwardKeyPressed;
+    public string jumpKey = "j";
+    private bool jumpKeyValid;
+    //reference for max jump frames and its default
+    public float maxJump = 1f;
+    private float localMaxJump;
+    private int currentJump;
+    //references for how fast Mr.NameLessCube can move on the X, Y, and Z axis and their defaults
+    public float xForce = 500f;
+    public float yForce = 1350f;
+    public float zForce = 500f;
+    //references rigidbody of Mr.Nameless Cube and Nameless food
+    public Rigidbody mrcube;
+    public Rigidbody food;
+    //food generation timer
+    public float foodTime = 30f;
+    private float currentFoodTime;
+   
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        //Initiating the Vector for Mr.Nameless cube's spawn point
+        spawnPoint = new Vector3(0, 1, 0);
+        //Initiating the bool for testing Mr.Nameless Cube movement keys
+        leftKeyPressed = false;
+        rightKeyPressed = false;
+        forwardKeyPressed = false;
+        backwardKeyPressed = false;
+        jumpKeyValid = false;
+        //Initiating bool for computer power check
+        computerCheck = false;
+        //Initiating the int value for current jump variable
+        currentJump = 0;
+        //Initiating the value of refresh gravity
+        refreshGravity = true;
+        //Initiating Mr.Nameless cube's health values
+        health = 20f;
+        hunger = 10f;
+        alive = true;
+    }
+        // Update is called once per frame
+        void Update()
+        {
+        if (mrcube.transform.position.y < 1)
+        {
+            alive = false;
+        }
+        //tests if Mr.Nameless cube is still alive
+        if (health > 0) 
+        {
+            alive = true;
+        }
+        else
+        {
+            alive = false;
+        }
+        if (!alive)
+        {
+            mrcube.position = spawnPoint;
+            alive = true;
+            health = 20f;
+        }
+        //makes sure refresh gravity is only called once or when refreshed again
+        if (refreshGravity) {
+            //The force of gravity that is applied to Mr.Nameless Cube is calculated here
+            gravityForce = gravity * weight;
+            //Lowers yForce based on gravityforce strength
+            yForce = yForce - gravityForce;
+            refreshGravity = false;
+                             }
+        //adjusts variables based on your computer power
+        if (!computerCheck)
+            {
+            foodTime = foodTime / Time.deltaTime;
+            decreaseHealth = decreaseHealth / Time.deltaTime;
+            decreaseHunger = decreaseHunger / Time.deltaTime;
+            localMaxJump = maxJump / Time.deltaTime;
+            computerCheck = true;
+            }
+         //timer for summoning food objects
+        if (currentFoodTime > 0)
+        {
+            --currentFoodTime;
+            
+        }
+        else
+        { 
+            currentFoodTime = foodTime;
+            Instantiate(food, new Vector3(Random.Range(-1000, 1000), 2, Random.Range(-1000, 1000)), Quaternion.identity);
+        }
+        if (decreaseHungerCurrent <= 0f && hunger > 0f)
+        {
+            decreaseHungerCurrent = decreaseHunger;
+            hunger--;
+        }
+        if (decreaseHealthCurrent <= 0f && health > 0f)
+        {
+            decreaseHealthCurrent = decreaseHealth;
+            health--;
+        }
+        if (hunger <= 0)
+        {
+            decreaseHealthCurrent--;
+        }
+        //tests if the left key is pressed and sets the bool based on that
+        if (Input.GetKey(leftKey))
+            {
+                leftKeyPressed = true;
+                decreaseHungerCurrent--;
+            }
+            else
+            {
+                leftKeyPressed = false;
+            }
+            //tests if the right key is pressed and sets the bool based on that
+            if (Input.GetKey(rightKey))
+            {
+                rightKeyPressed = true;
+                decreaseHungerCurrent--;
+            }
+            else
+            {
+                rightKeyPressed = false;
+                decreaseHungerCurrent--;
+            }
+            //tests if the forward key is pressed and sets the bool based on that
+            if (Input.GetKey(forwardKey))
+            {
+                forwardKeyPressed = true;
+                decreaseHungerCurrent--;
+            }
+            else
+            {
+                forwardKeyPressed = false;
+            }
+            //tests if the backward key is pressed and sets the bool based on that
+            if (Input.GetKey(backwardKey))
+            {
+                backwardKeyPressed = true;
+                decreaseHungerCurrent--;
+            }
+            else
+            {
+                backwardKeyPressed = false;
+            }
+            //tests if the jump key is pressed then tests if Mr.Nameless Cube can jump then sets the bool based on that
+            if (Input.GetKey(jumpKey) && currentJump <= localMaxJump)
+            {
+                jumpKeyValid = true;
+                currentJump++;
+                decreaseHungerCurrent--;
+            }
+            else
+            {
+                jumpKeyValid = false;
+            }
+            //resets currentJump and jumpReset
+            if (jumpReset)
+            {
+            currentJump = 0;
+            jumpReset = false;
+            }
+            
+
+        }
+        //Put things for physics here
+        void FixedUpdate()
+        {
+            //Adds force to Mr.Nameless cube in X,Y, and Z axis based on if keys are pressed and valid
+            if (leftKeyPressed)
+            {
+                mrcube.AddForce(-xForce * Time.deltaTime, 0, 0);
+            }
+            if (rightKeyPressed)
+            {
+                mrcube.AddForce(xForce * Time.deltaTime, 0, 0);
+            }
+            if (forwardKeyPressed)
+            {
+                mrcube.AddForce(0, 0, zForce * Time.deltaTime);
+            }
+            if (backwardKeyPressed)
+            {
+                mrcube.AddForce(0, 0, -zForce * Time.deltaTime);
+            }
+            if (jumpKeyValid)
+            {
+                mrcube.AddForce(0, yForce * Time.deltaTime, 0);
+            }
+        }
+    //gets info on collisions with Mr.Nameless Cube
+    private void OnCollisionEnter(Collision collisionInfo)
+    {
+     //checks if the thing Mr.Nameless cube collided with has the canResetJump tag
+        if (collisionInfo.collider.tag == "canResetJump")
+        {
+     //sets jumpReset bool to true
+            jumpReset = true;
+        }
+        if (collisionInfo.collider.tag == "isFood")
+        {
+            if (hunger == 20f && health < 20f)
+            {
+                health++;
+            }
+            else if(hunger >= 20)
+            {
+                hunger = maxHunger - hunger + 5;
+            }
+            else
+            {
+                hunger++;
+            }
+            if (hunger != 20) {
+                Destroy(collisionInfo.gameObject);
+            }
+        }
+    }
+}

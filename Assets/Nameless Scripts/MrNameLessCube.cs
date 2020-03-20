@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MrNameLessCube : MonoBehaviour
 {
+    public Vector3 exitPortal;
     //reference to how long until hunger decreases health
     public float decreaseHealth = 50f;
     private float decreaseHealthCurrent = 0f;
@@ -55,10 +56,12 @@ public class MrNameLessCube : MonoBehaviour
     private float currentFoodTime;
     //reference for the text UI element
     public Text statsText;
+    //reference to the portal
+    NamelessPortal portal;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
-        
+        NamelessPortal portal = new NamelessPortal();
         //Initiating the Vector for Mr.Nameless cube's spawn point
         spawnPoint = new Vector3(0, 1, 0);
         //Initiating the bool for testing Mr.Nameless Cube movement keys
@@ -77,11 +80,12 @@ public class MrNameLessCube : MonoBehaviour
         health = 21f;
         hunger = 21f;
         alive = true;
-        
+
     }
-        // Update is called once per frame
-        void Update()
-        {
+    // Update is called once per frame
+    public void Update()
+    {
+
         //Shows the stats of Mr.Nameless Cube on screen
         statsText.text = "Health: " + health.ToString() + " Hunger: " + hunger.ToString();
         //Kills Mr.Nameless Cube if he falls into the void
@@ -90,7 +94,7 @@ public class MrNameLessCube : MonoBehaviour
             health = 0;
         }
         //tests if Mr.Nameless cube is still alive
-        if (health > 0f) 
+        if (health > 0f)
         {
             alive = true;
         }
@@ -106,30 +110,31 @@ public class MrNameLessCube : MonoBehaviour
             hunger = 21f;
         }
         //makes sure refresh gravity is only called once or when refreshed again
-        if (refreshGravity) {
+        if (refreshGravity)
+        {
             //The force of gravity that is applied to Mr.Nameless Cube is calculated here
             gravityForce = gravity * weight;
             //Lowers yForce based on gravityforce strength
             yForce = yForce - gravityForce;
             refreshGravity = false;
-                             }
+        }
         //adjusts variables based on your computer power
         if (!computerCheck)
-            {
+        {
             foodTime = foodTime / Time.deltaTime;
             decreaseHealth = decreaseHealth / Time.deltaTime;
             decreaseHunger = decreaseHunger / Time.deltaTime;
             localMaxJump = maxJump / Time.deltaTime;
             computerCheck = true;
-            }
-         //timer for summoning food objects
+        }
+        //timer for summoning food objects
         if (currentFoodTime > 0f)
         {
             --currentFoodTime;
-            
+
         }
         else
-        { 
+        {
             currentFoodTime = foodTime;
             Instantiate(food, new Vector3(Random.Range(-1000, 1000), 2, Random.Range(-1000, 1000)), Quaternion.identity);
         }
@@ -149,102 +154,102 @@ public class MrNameLessCube : MonoBehaviour
         }
         //tests if the left key is pressed and sets the bool based on that
         if (Input.GetKey(leftKey))
-            {
-                leftKeyPressed = true;
-                decreaseHungerCurrent--;
-            }
-            else
-            {
-                leftKeyPressed = false;
-            }
-            //tests if the right key is pressed and sets the bool based on that
-            if (Input.GetKey(rightKey))
-            {
-                rightKeyPressed = true;
-                decreaseHungerCurrent--;
-            }
-            else
-            {
-                rightKeyPressed = false;
-                decreaseHungerCurrent--;
-            }
-            //tests if the forward key is pressed and sets the bool based on that
-            if (Input.GetKey(forwardKey))
-            {
-                forwardKeyPressed = true;
-                decreaseHungerCurrent--;
-            }
-            else
-            {
-                forwardKeyPressed = false;
-            }
-            //tests if the backward key is pressed and sets the bool based on that
-            if (Input.GetKey(backwardKey))
-            {
-                backwardKeyPressed = true;
-                decreaseHungerCurrent--;
-            }
-            else
-            {
-                backwardKeyPressed = false;
-            }
-            //tests if the jump key is pressed then tests if Mr.Nameless Cube can jump then sets the bool based on that
-            if (Input.GetKey(jumpKey) && currentJump <= localMaxJump)
-            {
-                jumpKeyValid = true;
-                currentJump++;
-                decreaseHungerCurrent--;
-            }
-            else
-            {
-                jumpKeyValid = false;
-            }
-            //resets currentJump and jumpReset
-            if (jumpReset)
-            {
+        {
+            leftKeyPressed = true;
+            decreaseHungerCurrent--;
+        }
+        else
+        {
+            leftKeyPressed = false;
+        }
+        //tests if the right key is pressed and sets the bool based on that
+        if (Input.GetKey(rightKey))
+        {
+            rightKeyPressed = true;
+            decreaseHungerCurrent--;
+        }
+        else
+        {
+            rightKeyPressed = false;
+            decreaseHungerCurrent--;
+        }
+        //tests if the forward key is pressed and sets the bool based on that
+        if (Input.GetKey(forwardKey))
+        {
+            forwardKeyPressed = true;
+            decreaseHungerCurrent--;
+        }
+        else
+        {
+            forwardKeyPressed = false;
+        }
+        //tests if the backward key is pressed and sets the bool based on that
+        if (Input.GetKey(backwardKey))
+        {
+            backwardKeyPressed = true;
+            decreaseHungerCurrent--;
+        }
+        else
+        {
+            backwardKeyPressed = false;
+        }
+        //tests if the jump key is pressed then tests if Mr.Nameless Cube can jump then sets the bool based on that
+        if (Input.GetKey(jumpKey) && currentJump <= localMaxJump)
+        {
+            jumpKeyValid = true;
+            currentJump++;
+            decreaseHungerCurrent--;
+        }
+        else
+        {
+            jumpKeyValid = false;
+        }
+        //resets currentJump and jumpReset
+        if (jumpReset)
+        {
             currentJump = 0;
             jumpReset = false;
-            }
-            
+        }
 
-        }
-        //Put things for physics here
-        void FixedUpdate()
+
+    }
+    //Put things for physics here
+    void FixedUpdate()
+    {
+        //Adds force to Mr.Nameless cube in X,Y, and Z axis based on if keys are pressed and valid
+        if (leftKeyPressed)
         {
-            //Adds force to Mr.Nameless cube in X,Y, and Z axis based on if keys are pressed and valid
-            if (leftKeyPressed)
-            {
-                mrcube.AddForce(-xForce * Time.deltaTime, 0, 0);
-            }
-            if (rightKeyPressed)
-            {
-                mrcube.AddForce(xForce * Time.deltaTime, 0, 0);
-            }
-            if (forwardKeyPressed)
-            {
-                mrcube.AddForce(0, 0, zForce * Time.deltaTime);
-            }
-            if (backwardKeyPressed)
-            {
-                mrcube.AddForce(0, 0, -zForce * Time.deltaTime);
-            }
-            if (jumpKeyValid)
-            {
-                mrcube.AddForce(0, yForce * Time.deltaTime, 0);
-            }
+            mrcube.AddForce(-xForce * Time.deltaTime, 0, 0);
         }
+        if (rightKeyPressed)
+        {
+            mrcube.AddForce(xForce * Time.deltaTime, 0, 0);
+        }
+        if (forwardKeyPressed)
+        {
+            mrcube.AddForce(0, 0, zForce * Time.deltaTime);
+        }
+        if (backwardKeyPressed)
+        {
+            mrcube.AddForce(0, 0, -zForce * Time.deltaTime);
+        }
+        if (jumpKeyValid)
+        {
+            mrcube.AddForce(0, yForce * Time.deltaTime, 0);
+        }
+    }
     //gets info on collisions with Mr.Nameless Cube
     private void OnCollisionEnter(Collision collisionInfo)
     {
-     //checks if the thing Mr.Nameless cube collided with has the canResetJump tag
+        //checks if the thing Mr.Nameless cube collided with has the canResetJump tag
         if (collisionInfo.collider.tag == "canResetJump")
         {
-     //sets jumpReset bool to true
+            //sets jumpReset bool to true
             jumpReset = true;
         }
         if (collisionInfo.collider.tag == "isFood")
         {
-      //determines what to do with food
+            //determines what to do with food
             if (hunger <= 20f && health < 20f)
             {
                 health++;
@@ -253,9 +258,15 @@ public class MrNameLessCube : MonoBehaviour
             {
                 hunger = hunger + maxHunger - hunger;
             }
-           
-            if (hunger <= 20) {
-                Destroy(collisionInfo.gameObject);           
+
+            if (hunger <= 20)
+            {
+                Destroy(collisionInfo.gameObject);
+                if (collisionInfo.collider.tag == "isPortal")
+                {
+
+
+                }
             }
         }
     }

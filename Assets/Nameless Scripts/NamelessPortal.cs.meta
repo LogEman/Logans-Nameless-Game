@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 25b64920fb74e274189afdac4f4e87ff
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - getPortalChannel: {fileID: 8063704325016126949, guid: 6c448b3de96781e4895f7d26b4bc8499,
+      type: 3}
+  - rigidPortal: {fileID: 8042900360751934379, guid: 876d45099e8ed3e4eb59a2abc61fc4dd,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

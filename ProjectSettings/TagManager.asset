@@ -7,6 +7,8 @@ TagManager:
   - canResetJump
   - isCube
   - isFood
+  - isMrCube
+  - isPortal
   layers:
   - Default
   - TransparentFX

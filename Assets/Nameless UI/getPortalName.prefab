@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6660151049893041863}
   - component: {fileID: 8063704325016126949}
   m_Layer: 5
-  m_Name: getPortalChannel
+  m_Name: getPortalName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

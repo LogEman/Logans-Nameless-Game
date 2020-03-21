@@ -8,7 +8,8 @@ TagManager:
   - isCube
   - isFood
   - isMrCube
-  - isPortal
+  - isUnactivePortal
+  - isActivePortal
   layers:
   - Default
   - TransparentFX

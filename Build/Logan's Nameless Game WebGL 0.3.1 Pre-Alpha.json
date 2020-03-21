@@ -1,0 +1,16 @@
+{
+"companyName": "Logan's Nameless Company",
+"productName": "Logan's Nameless Game",
+"productVersion": "0.1",
+"dataUrl": "Logan's Nameless Game WebGL 0.3.1 Pre-Alpha.data.unityweb",
+"wasmCodeUrl": "Logan's Nameless Game WebGL 0.3.1 Pre-Alpha.wasm.code.unityweb",
+"wasmFrameworkUrl": "Logan's Nameless Game WebGL 0.3.1 Pre-Alpha.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.3.6f1"
+}

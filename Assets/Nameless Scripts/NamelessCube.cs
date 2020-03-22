@@ -2,18 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unisave;
-public class NamelessCube : UnisaveLocalBehavior
+public class NamelessCube : MonoBehaviour
 {
     //References and defaults to objects and variables
-    [SavedAs("cube")]
     public Rigidbody cube;
     public Transform MrCube;
-    [SavedAs("summon-cube-key")]
     public string summonKey = "c";
-    [SavedAs("remove-cube-key")]
     public string removeKey = "r";
-    [SavedAs("cube-offset")]
     public Vector3 cubeOffset;
     
     void Start()
@@ -48,7 +43,6 @@ public class NamelessCube : UnisaveLocalBehavior
         }
     }
 
-
-
-
-
+public class MonoLocalBehavior
+{
+}

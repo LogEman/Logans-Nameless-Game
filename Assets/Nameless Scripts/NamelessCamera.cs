@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unisave;
-public class NamelessCamera : UnisaveLocalBehavior
+public class NamelessCamera : MonoBehaviour
 {
     public Transform MrNameLessCube;
-    [SavedAs("camera-offset")]
     public Vector3 cameraOffset;
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +15,7 @@ public class NamelessCamera : UnisaveLocalBehavior
     
     // Update is called once per frame
     void FixedUpdate()
-    {
-   
+    {  
         transform.position = MrNameLessCube.position + cameraOffset;
     }
 }

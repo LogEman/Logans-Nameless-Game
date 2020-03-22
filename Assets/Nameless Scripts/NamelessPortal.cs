@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using Unisave;
-public class NamelessPortal : UnisaveLocalBehavior
+public class NamelessPortal : MonoBehaviour
 {
     //Reference for do it bool
     public bool doIt;
     //Portal being teleported to
     public GameObject targetPortal;
     //Portal offsets reference
-    [SavedAs("summon-portal-offset")]
     public Vector3 summonPortalOffset;
-    [SavedAs("portal-offset")]
     public Vector3 portalOffset;
     //Reference to portal name string
     public string portalName;
@@ -24,10 +21,8 @@ public class NamelessPortal : UnisaveLocalBehavior
     //Reference to InputField for the channel of the portal
     public InputField getPortalName;
     //Reference to the portal's rigidbody
-    [SavedAs("portal")]
     public Rigidbody rigidPortal;
     //Reference to portal summoning key string and its default
-    [SavedAs("portal-key")]
     public string portalKey = "p";
     // Start is called before the first frame update
     void Start()

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using System;
 public class NamelessPortal : MonoBehaviour
 {
+    //Vectors for get portal offsets
+    public Vector3 getPortalOffset;
+    public Vector3 getSummonPortalOffset;
     //Reference for do it bool
     public bool doIt;
     //Portal being teleported to
@@ -34,6 +37,7 @@ public class NamelessPortal : MonoBehaviour
         getPortalName.gameObject.SetActive(false);
         //Makes an object for the MrNameLessCube class to get information
         MrNameLessCube mrNameLessCube = new MrNameLessCube();
+        LoadData();
     }
 
     // Update is called once per frame
@@ -82,6 +86,26 @@ public class NamelessPortal : MonoBehaviour
             //Enables input field for portal name
             getPortalName.gameObject.SetActive(true);        
         }
+    }
+    void SaveData()
+    {
+        //Saves data
+        PlayerPrefs.SetFloat("portal-offset-x", portalOffset.x);
+        PlayerPrefs.SetFloat("portal-offset-y", portalOffset.y);
+        PlayerPrefs.SetFloat("portal-offset-z", portalOffset.z);
+        PlayerPrefs.SetFloat("portal-spawn-offset-x", summonPortalOffset.x);
+        PlayerPrefs.SetFloat("portal-spawn-offset-y", summonPortalOffset.y);
+        PlayerPrefs.SetFloat("portal-spawn-offset-z", summonPortalOffset.z);
+        PlayerPrefs.SetString("portal-key", portalKey);
+    }
+    void LoadData()
+    {
+        //Loads data
+        Vector3 getPortalOffset = new Vector3(PlayerPrefs.GetFloat("portal-offset-x", 0), PlayerPrefs.GetFloat("portal-offset-y", 0), PlayerPrefs.GetFloat("portal-offset-z", -3));
+        portalOffset = getPortalOffset;
+        Vector3 getSummonPortalOffset = new Vector3(PlayerPrefs.GetFloat("portal-spawn-offset-x", 0), PlayerPrefs.GetFloat("portal-spawn-offset-y", 0), PlayerPrefs.GetFloat("portal-spawn-offset-z", 3));
+        summonPortalOffset = getSummonPortalOffset;
+        portalKey = PlayerPrefs.GetString("portal-key", "p");
     }
 }
         

@@ -173,7 +173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -294, y: -258.02}
+  m_AnchoredPosition: {x: -305.4, y: -236.8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &517633331
@@ -207,7 +207,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Pre-Alpha 0.3.1\n\xA9 2020 Logan Kessler GPL-3.0\n"
+  m_Text: "Pre-Alpha 0.4.0\n\xA9 2020 Logan Kessler GPL-3.0\n"
 --- !u!222 &517633332
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -424,6 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MrNameLessCube: {fileID: 1988474517}
   cameraOffset: {x: 0, y: 0, z: 0}
+  getOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1223103308
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,6 +811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0736455b356220f428df23f5d296095e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  getPos: {x: 0, y: 0, z: 0}
+  getSpawn: {x: 0, y: 0, z: 0}
   exitPortal: {x: 0, y: 0, z: 0}
   decreaseHealth: 50
   decreaseHungerCurrent: 0
@@ -853,6 +856,8 @@ MonoBehaviour:
   summonKey: c
   removeKey: r
   cubeOffset: {x: 0, y: 0, z: 0}
+  cubePos: {x: 0, y: 0, z: 0}
+  getOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1988474520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,6 +870,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b64920fb74e274189afdac4f4e87ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  getPortalOffset: {x: 0, y: 0, z: 0}
+  getSummonPortalOffset: {x: 0, y: 0, z: 0}
   doIt: 0
   targetPortal: {fileID: 0}
   summonPortalOffset: {x: 0, y: 0, z: 0}
@@ -1149,7 +1156,7 @@ PrefabInstance:
     - target: {fileID: 4839094666311048930, guid: 1c2911e16a2142f43bcc0f6aaf61436c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 218
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 4839094666311048930, guid: 1c2911e16a2142f43bcc0f6aaf61436c,
         type: 3}

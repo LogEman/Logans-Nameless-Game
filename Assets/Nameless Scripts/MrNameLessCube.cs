@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MrNameLessCube : MonoBehaviour
 {
+    public Vector3 getPos;
+    public Vector3 getSpawn;
+    //reference vector to exit portal
     public Vector3 exitPortal;
     //reference to how long until hunger decreases health
     public float decreaseHealth = 50f;
@@ -81,6 +84,7 @@ public class MrNameLessCube : MonoBehaviour
         health = 21f;
         hunger = 21f;
         alive = true;
+        LoadData();
 
     }
     // Update is called once per frame
@@ -266,4 +270,45 @@ public class MrNameLessCube : MonoBehaviour
             }
         }
     }
+        void SaveData()
+    {
+        //Saves all the data
+        PlayerPrefs.SetFloat("mrcube-pos-x", mrcube.position.x);
+        PlayerPrefs.SetFloat("mrcube-pos-y", mrcube.position.y);
+        PlayerPrefs.SetFloat("mrcube-pos-z", mrcube.position.z);
+        PlayerPrefs.SetFloat("mrcube-health", health);
+        PlayerPrefs.SetFloat("mrcube-hunger", hunger);
+        PlayerPrefs.SetFloat("mrcube-spawn-x", spawnPoint.x);
+        PlayerPrefs.SetFloat("mrcube-spawn-y", spawnPoint.y);
+        PlayerPrefs.SetFloat("mrcube-spawn-z", spawnPoint.z);
+        PlayerPrefs.SetFloat("mrcube-weight", weight);
+        PlayerPrefs.SetFloat("planet-gravity", gravity);
+        PlayerPrefs.SetString("mrcube-leftkey", leftKey);
+        PlayerPrefs.SetString("mrcube-rightkey", rightKey);
+        PlayerPrefs.SetString("mrcube-forwardkey", forwardKey);
+        PlayerPrefs.SetString("mrcube-backwardkey", backwardKey);
+        PlayerPrefs.SetString("mrcube-jumpkey", jumpKey);
+    }
+        void LoadData()
+    {
+        //Loads all the data
+        Vector3 getPos = new Vector3(PlayerPrefs.GetFloat("mrcube-pos-x", 0), PlayerPrefs.GetFloat("mrcube-pos-y", 1), PlayerPrefs.GetFloat("mrcube-pos-z", 0));
+        transform.position = getPos;
+        health = PlayerPrefs.GetFloat("mrcube-health", 21);
+        hunger = PlayerPrefs.GetFloat("mrcube-hunger", 21);
+        Vector3 getSpawn = new Vector3(PlayerPrefs.GetFloat("mrcube-spawn-x", 0), PlayerPrefs.GetFloat("mrcube-spawn-y", 1), PlayerPrefs.GetFloat("mrcube-spawn-z", 0));
+        spawnPoint = getSpawn;
+        weight = PlayerPrefs.GetFloat("mrcube-weight", 1);
+        gravity = PlayerPrefs.GetFloat("planet-gravity", 1);
+        leftKey = PlayerPrefs.GetString("mrcube-leftkey", "a");
+        rightKey = PlayerPrefs.GetString("mrcube-rightkey", "d");
+        forwardKey = PlayerPrefs.GetString("mrcube-forwardkey", "w");
+        backwardKey = PlayerPrefs.GetString("mrcube-backwardkey", "s");
+        jumpKey = PlayerPrefs.GetString("mrcube-jumpkey", "space");
+    }
+    void OnApplicationQuit()
+    {
+        SaveData();
+    }
+
 }

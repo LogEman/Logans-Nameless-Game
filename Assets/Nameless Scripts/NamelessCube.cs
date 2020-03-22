@@ -10,11 +10,13 @@ public class NamelessCube : MonoBehaviour
     public string summonKey = "c";
     public string removeKey = "r";
     public Vector3 cubeOffset;
-    
+    public Vector3 cubePos;
+    public Vector3 getOffset;
     void Start()
     {
         //sets offset of the cube in a vector
         cubeOffset = new Vector3(0f, 0f, 1f);
+        LoadData();
     }
     // Update is called once per frame
     void Update()
@@ -41,8 +43,26 @@ public class NamelessCube : MonoBehaviour
                 }
             }
         }
+    void SaveData()
+    {
+        //Saves data
+        PlayerPrefs.SetFloat("cube-offset-x", cubeOffset.x);
+        PlayerPrefs.SetFloat("cube-offset-y", cubeOffset.y);
+        PlayerPrefs.SetFloat("cube-offset-z", cubeOffset.z);
+        PlayerPrefs.SetString("cube-remove-key", removeKey);
+        PlayerPrefs.SetString("cube-summon-key", summonKey);
     }
-
-public class MonoLocalBehavior
-{
+    void LoadData()
+    {
+        //Loads data
+        Vector3 getOffset = new Vector3(PlayerPrefs.GetFloat("cube-offset-x", 0), PlayerPrefs.GetFloat("cube-offset-y", 0), PlayerPrefs.GetFloat("cube-offset-z", 1));
+        cubeOffset = getOffset;
+        removeKey = PlayerPrefs.GetString("cube-remove-key", "r");
+        summonKey = PlayerPrefs.GetString("cube-summon-key", "c");
+    }
+    void OnApplicationQuit()
+    {
+        SaveData();
+    }
 }
+

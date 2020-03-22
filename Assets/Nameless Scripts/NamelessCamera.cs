@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class NamelessCamera : MonoBehaviour
+using Unisave;
+public class NamelessCamera : UnisaveLocalBehavior
 {
     public Transform MrNameLessCube;
+    [SavedAs("camera-offset")]
     public Vector3 cameraOffset;
     
     // Start is called before the first frame update

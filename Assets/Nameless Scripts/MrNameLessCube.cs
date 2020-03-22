@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class MrNameLessCube : MonoBehaviour
+using Unisave;
+public class MrNameLessCube : UnisaveLocalBehavior
 {
     public Vector3 exitPortal;
     //reference to how long until hunger decreases health
@@ -14,49 +15,72 @@ public class MrNameLessCube : MonoBehaviour
     //reference to spawnpoint
     public Vector3 spawnPoint;
     //reference for health values and defaults
+    [SavedAs("health")]
     public float health = 21f;
+    [SavedAs("hunger")]
     public float hunger = 21f;
+    [SavedAs("max-hunger")]
     public float maxHunger = 21f;
+    [SavedAs("max-health")]
     public float maxHealth = 21f;
+    [SavedAs("alive")]
     public bool alive = true;
     //reference to refresh gravity bool and default value
+    [SavedAs("refresh-gravity")]
     public bool refreshGravity = false;
     //reference to jump reset bool
     private bool jumpReset;
     //references gravity for Nameless Planet and weight for Mr.NameLess Cube
+    [SavedAs("gravity")]
     public float gravity = 1f;
+    [SavedAs("weight")]
     public float weight = 1f;
+    [SavedAs("gravity-force")]
     private float gravityForce = 0f;
     //references computercheck bool
+    [SavedAs("computer-check")]
     private bool computerCheck;
     //references for movement keys for Mr.Nameless Cube and their defaults and test bools for said keys
+    [SavedAs("left-key")]
     public string leftKey = "a";
     private bool leftKeyPressed;
+    [SavedAs("right-key")]
     public string rightKey = "d";
     private bool rightKeyPressed;
+    [SavedAs("forward-key")]
     public string forwardKey = "w";
     private bool forwardKeyPressed;
+    [SavedAs("backward-key")]
     public string backwardKey = "s";
     private bool backwardKeyPressed;
+    [SavedAs("jump-key")]
     public string jumpKey = "j";
     private bool jumpKeyValid;
     //reference for max jump frames and its default
+    [SavedAs("max-jump")]
     public float maxJump = 1f;
     private float localMaxJump;
     private int currentJump;
     //references for how fast Mr.NameLessCube can move on the X, Y, and Z axis and their defaults
+    [SavedAs("xforce")]
     public float xForce = 500f;
+    [SavedAs("yforce")]
     public float yForce = 1350f;
+    [SavedAs("zforceS")]
     public float zForce = 500f;
     //references rigidbody of Mr.Nameless Cube and Nameless food
+    [SavedAs("mrcube")]
     public Rigidbody mrcube;
+    [SavedAs("food")]
     public Rigidbody food;
     //food generation timer
     public float foodTime = 10f;
+    [SavedAs("current-food-time")]
     private float currentFoodTime;
     //reference for the text UI element
+    [SavedAs("stats-text")]
     public Text statsText;
-    //reference to the portal
+    //reference to the  
     NamelessPortal portal;
     // Start is called before the first frame update
     public void Start()
@@ -77,6 +101,7 @@ public class MrNameLessCube : MonoBehaviour
         //Initiating the value of refresh gravity
         refreshGravity = true;
         //Initiating Mr.Nameless cube's health values
+        
         health = 21f;
         hunger = 21f;
         alive = true;
@@ -262,11 +287,6 @@ public class MrNameLessCube : MonoBehaviour
             if (hunger <= 20)
             {
                 Destroy(collisionInfo.gameObject);
-                if (collisionInfo.collider.tag == "isPortal")
-                {
-
-
-                }
             }
         }
     }

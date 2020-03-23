@@ -7,25 +7,21 @@ public class NamelessCube : MonoBehaviour
     //References and defaults to objects and variables
     public Rigidbody cube;
     public Transform MrCube;
-    public string summonKey = "c";
     public string removeKey = "r";
-    public Vector3 cubeOffset;
-    public Vector3 cubePos;
-    public Vector3 getOffset;
+    private int cubeNum;
+    private bool CubeNumUsed;
+    private bool cubesLoaded;
     void Start()
     {
         //sets offset of the cube in a vector
-        cubeOffset = new Vector3(0f, 0f, 1f);
         LoadData();
     }
     // Update is called once per frame
     void Update()
         {
-        if (Input.GetKeyDown(summonKey))
+        if (Input.GetKeyDown("o"))
         {
-            //summons cube and sets the position of the cube
-            Instantiate(cube);
-            cube.transform.position = MrCube.transform.position + cubeOffset;
+            SaveData();
         }
 
             if (Input.GetKeyDown(removeKey))
@@ -45,21 +41,16 @@ public class NamelessCube : MonoBehaviour
         }
     void SaveData()
     {
-        //Saves data
-        PlayerPrefs.SetFloat("cube-offset-x", cubeOffset.x);
-        PlayerPrefs.SetFloat("cube-offset-y", cubeOffset.y);
-        PlayerPrefs.SetFloat("cube-offset-z", cubeOffset.z);
-        PlayerPrefs.SetString("cube-remove-key", removeKey);
-        PlayerPrefs.SetString("cube-summon-key", summonKey);
+      
     }
     void LoadData()
     {
-        //Loads data
-        Vector3 getOffset = new Vector3(PlayerPrefs.GetFloat("cube-offset-x", 0), PlayerPrefs.GetFloat("cube-offset-y", 0), PlayerPrefs.GetFloat("cube-offset-z", 1));
-        cubeOffset = getOffset;
-        removeKey = PlayerPrefs.GetString("cube-remove-key", "r");
-        summonKey = PlayerPrefs.GetString("cube-summon-key", "c");
-    }
+       
+            //Loads data
+            removeKey = PlayerPrefs.GetString("cube-remove-key", "r");
+        }
+        
+    
     void OnApplicationQuit()
     {
         SaveData();

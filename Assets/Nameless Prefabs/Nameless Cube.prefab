@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 4668168304542263773}
   - component: {fileID: 631590150619630324}
   - component: {fileID: 7393770197891606565}
+  - component: {fileID: 2862375427075573583}
   m_Layer: 0
   m_Name: Nameless Cube
-  m_TagString: isCube
+  m_TagString: willBeCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490649955293442304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0046511292, y: 1.0036854, z: 1.0005475}
+  m_LocalPosition: {x: 33.045216, y: 1, z: -49.16993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -110,3 +111,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2862375427075573583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490649955293442304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1c9d72d62283346aded75157a0efb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cube: {fileID: 7393770197891606565}
+  MrCube: {fileID: 8552781887001533289, guid: 1dcbee1052ccf0340874bbd9a2293b42, type: 3}
+  removeKey: r

@@ -14,10 +14,10 @@ GameObject:
   - component: {fileID: 8552781887001533294}
   - component: {fileID: 8552781887001533293}
   - component: {fileID: 8552781887001533290}
-  - component: {fileID: 8552781887001533291}
+  - component: {fileID: -8947541240953402815}
   m_Layer: 0
   m_Name: Mr. NameLess Cube
-  m_TagString: Untagged
+  m_TagString: isMrCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -125,6 +125,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0736455b356220f428df23f5d296095e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeOffset: {x: 0, y: 0, z: 0}
+  cube: {fileID: 7393770197891606565, guid: b0a77767f12e6a14a803ca65e056e3dd, type: 3}
+  summonKey: c
+  getPos: {x: 0, y: 0, z: 0}
+  getSpawn: {x: 0, y: 0, z: 0}
+  exitPortal: {x: 0, y: 0, z: 0}
+  decreaseHealth: 50
+  decreaseHungerCurrent: 0
+  decreaseHunger: 100
+  spawnPoint: {x: 0, y: 0, z: 0}
+  health: 21
+  hunger: 21
+  maxHunger: 21
+  maxHealth: 21
+  alive: 1
   refreshGravity: 0
   gravity: 1
   weight: 1
@@ -137,8 +152,12 @@ MonoBehaviour:
   xForce: 500
   yForce: 749
   zForce: 500
-  rb: {fileID: 8552781887001533293}
---- !u!114 &8552781887001533291
+  mrcube: {fileID: 8552781887001533293}
+  food: {fileID: 8439134388041850244, guid: e89af4b11561e3247a994b48c07c0039, type: 3}
+  foodTime: 10
+  statsText: {fileID: 4839094666311048931, guid: 1c2911e16a2142f43bcc0f6aaf61436c,
+    type: 3}
+--- !u!114 &-8947541240953402815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,10 +166,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 8552781887001533292}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc1c9d72d62283346aded75157a0efb3, type: 3}
+  m_Script: {fileID: 11500000, guid: 25b64920fb74e274189afdac4f4e87ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cube: {fileID: 7393770197891606565, guid: b0a77767f12e6a14a803ca65e056e3dd, type: 3}
-  MrCube: {fileID: 8552781887001533289}
-  summonKey: c
-  removeKey: r
+  getPortalOffset: {x: 0, y: 0, z: 0}
+  getSummonPortalOffset: {x: 0, y: 0, z: 0}
+  doIt: 0
+  targetPortal: {fileID: 0}
+  summonPortalOffset: {x: 0, y: 0, z: 0}
+  portalOffset: {x: 0, y: 0, z: 0}
+  portalName: 
+  mrNamelessCube: {fileID: 8552781887001533293}
+  getPortalName: {fileID: 8063704325016126949, guid: 6c448b3de96781e4895f7d26b4bc8499,
+    type: 3}
+  rigidPortal: {fileID: 8042900360751934379, guid: 876d45099e8ed3e4eb59a2abc61fc4dd,
+    type: 3}
+  portalKey: p

@@ -12,7 +12,7 @@ public class NamelessCamera : MonoBehaviour
         //initializing cameraOffset as a vector and setting default
         cameraOffset = new Vector3(0.0f, 0.0f, 0.0f);
         cameraOffset.Set(0f, 1f, -5f);
-        LoadData();
+        //LoadData();
     }
     
     // Update is called once per frame
@@ -22,19 +22,19 @@ public class NamelessCamera : MonoBehaviour
     }
     void OnApplicationQuit()
     {
-        SaveData();
+        //SaveData();
     }
     void SaveData()
     {
         //Saves data
-        PlayerPrefs.SetFloat("camera-offset-x", cameraOffset.x);
-        PlayerPrefs.SetFloat("camera-offset-y", cameraOffset.y);
-        PlayerPrefs.SetFloat("camera-offset-z", cameraOffset.z);
+       // PlayerPrefs.SetFloat("camera-offset-x", cameraOffset.x);
+       // PlayerPrefs.SetFloat("camera-offset-y", cameraOffset.y);
+       // PlayerPrefs.SetFloat("camera-offset-z", cameraOffset.z);
     }
     void LoadData()
     {
         //Loads data
-        Vector3 getOffset = new Vector3(PlayerPrefs.GetFloat("camera-offset-x", 0), PlayerPrefs.GetFloat("camera-offset-y", 1), PlayerPrefs.GetFloat("camera-offset-z", -5));
-        cameraOffset = getOffset;
+        //Vector3 getOffset = new Vector3(PlayerPrefs.GetFloat("camera-offset-x", 0), PlayerPrefs.GetFloat("camera-offset-y", 1), PlayerPrefs.GetFloat("camera-offset-z", -5));
+        //cameraOffset = getOffset;
     }
 }

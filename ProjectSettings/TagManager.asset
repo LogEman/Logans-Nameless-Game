@@ -10,6 +10,7 @@ TagManager:
   - isMrCube
   - isUnactivePortal
   - isActivePortal
+  - willBeCube
   layers:
   - Default
   - TransparentFX

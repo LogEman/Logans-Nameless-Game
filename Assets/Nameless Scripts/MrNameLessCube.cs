@@ -4,6 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 public class MrNameLessCube : MonoBehaviour
 {
+    private int onCubeNum;
+    public string removeKey;
+    private int cubeNum;
+    private bool CubeNumUsed;
+    private int cubeNameNum;
+    private int cubeLoadNum;
+    private Vector3 cubePos;
+    private bool cubesLoaded;
+    private Vector3 getOffset;
+    public Vector3 cubeOffset;
+    public Rigidbody cube;
+    public string summonKey = "c";
     public Vector3 getPos;
     public Vector3 getSpawn;
     //reference vector to exit portal
@@ -90,7 +102,15 @@ public class MrNameLessCube : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-
+        if (Input.GetKeyDown(summonKey))
+        {
+            //summons cube and sets the position of the cube
+            Instantiate(cube);
+            cube.transform.position = mrcube.transform.position + cubeOffset;
+            GameObject.FindGameObjectWithTag("willBeCube").name = "cube" + cubeNameNum.ToString();
+            GameObject.FindGameObjectWithTag("willBeCube").tag = "isCube";
+            cubeNameNum++;
+        }
         //Shows the stats of Mr.Nameless Cube on screen
         statsText.text = "Health: " + health.ToString() + " Hunger: " + hunger.ToString();
         //Kills Mr.Nameless Cube if he falls into the void
@@ -215,7 +235,14 @@ public class MrNameLessCube : MonoBehaviour
             currentJump = 0;
             jumpReset = false;
         }
-
+        if (Input.GetKeyDown("z"))
+        {
+            SaveData();
+        }
+        if (Input.GetKeyDown("l"))
+        {
+            LoadData();
+        }
 
     }
     //Put things for physics here
@@ -288,10 +315,43 @@ public class MrNameLessCube : MonoBehaviour
         PlayerPrefs.SetString("mrcube-forwardkey", forwardKey);
         PlayerPrefs.SetString("mrcube-backwardkey", backwardKey);
         PlayerPrefs.SetString("mrcube-jumpkey", jumpKey);
+        PlayerPrefs.SetString("cube-summon-key", summonKey);
+        PlayerPrefs.SetFloat("cube-offset-x", cubeOffset.x);
+        PlayerPrefs.SetFloat("cube-offset-y", cubeOffset.y);
+        PlayerPrefs.SetFloat("cube-offset-z", cubeOffset.z);
+        //Cube's stuff
+        CubeNumUsed = true;
+        while (CubeNumUsed || onCubeNum <= cubeNameNum)
+        {
+            if (!PlayerPrefs.HasKey("cube-position-x" + cubeNum.ToString()) && !PlayerPrefs.HasKey("cube-position-y" + cubeNum.ToString()) && !PlayerPrefs.HasKey("cube-position-z" + cubeNum.ToString()))
+            {
+                //Saves data
+                PlayerPrefs.SetFloat("cube-position-x" + cubeNum.ToString(), GameObject.Find("cube" + onCubeNum.ToString()).gameObject.transform.position.x);
+                PlayerPrefs.SetFloat("cube-position-y" + cubeNum.ToString(), GameObject.Find("cube" + onCubeNum.ToString()).gameObject.transform.position.y);
+                PlayerPrefs.SetFloat("cube-position-z" + cubeNum.ToString(), GameObject.Find("cube" + onCubeNum.ToString()).gameObject.transform.position.z);
+                PlayerPrefs.SetString("cube-remove-key", removeKey);
+                onCubeNum++;
+                CubeNumUsed = false;
+            }
+            else
+            {
+                cubeNum++;
+                CubeNumUsed = true;
+               
+            }
+            PlayerPrefs.SetInt("cube-name-number", cubeNameNum);
+        }
+
     }
-        void LoadData()
+    void LoadData()
     {
+        cubeNameNum = PlayerPrefs.GetInt("cube-name-num");
+        cubesLoaded = false;
+        onCubeNum = 0;
         //Loads all the data
+        summonKey = PlayerPrefs.GetString("cube-summon-key", "c");
+        Vector3 getOffset = new Vector3(PlayerPrefs.GetFloat("cube-offset-x", 0), PlayerPrefs.GetFloat("cube-offset-y", 0), PlayerPrefs.GetFloat("cube-offset-z", 1));
+        cubeOffset = getOffset;
         Vector3 getPos = new Vector3(PlayerPrefs.GetFloat("mrcube-pos-x", 0), PlayerPrefs.GetFloat("mrcube-pos-y", 1), PlayerPrefs.GetFloat("mrcube-pos-z", 0));
         transform.position = getPos;
         health = PlayerPrefs.GetFloat("mrcube-health", 21);
@@ -305,6 +365,23 @@ public class MrNameLessCube : MonoBehaviour
         forwardKey = PlayerPrefs.GetString("mrcube-forwardkey", "w");
         backwardKey = PlayerPrefs.GetString("mrcube-backwardkey", "s");
         jumpKey = PlayerPrefs.GetString("mrcube-jumpkey", "space");
+        cubeLoadNum = 1;
+        while (!cubesLoaded)
+        {
+            if (PlayerPrefs.HasKey("cube-position-x" + cubeLoadNum.ToString()) && PlayerPrefs.HasKey("cube-position-y" + cubeLoadNum.ToString()) && PlayerPrefs.HasKey("cube-position-z" + cubeLoadNum.ToString()))
+            {
+                Vector3 cubePos = new Vector3(PlayerPrefs.GetFloat("cube-position-x" + cubeLoadNum.ToString()), PlayerPrefs.GetFloat("cube-position-y" + cubeLoadNum.ToString()), PlayerPrefs.GetFloat("cube-position-z" + cubeLoadNum.ToString()));
+                Instantiate(cube, cubePos, Quaternion.identity);
+                PlayerPrefs.DeleteKey("cube-position-x" + cubeLoadNum.ToString());
+                PlayerPrefs.DeleteKey("cube-position-y" + cubeLoadNum.ToString());
+                PlayerPrefs.DeleteKey("cube-position-z" + cubeLoadNum.ToString());
+                cubeLoadNum++;
+            }
+            else
+            {
+                cubesLoaded = true;
+            }
+        }
     }
     void OnApplicationQuit()
     {

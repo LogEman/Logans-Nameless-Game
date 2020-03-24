@@ -147,6 +147,7 @@ public class MrNameLessCube : MonoBehaviour
         {
             currentFoodTime = foodTime;
             Instantiate(food, new Vector3(Random.Range(-1000, 1000), 2, Random.Range(-1000, 1000)), Quaternion.identity);
+            PlayerPrefs.Save();
         }
         if (decreaseHungerCurrent <= 0f && hunger > 0f)
         {

@@ -575,6 +575,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8947541240953402815, guid: 1dcbee1052ccf0340874bbd9a2293b42,
+        type: 3}
+      propertyPath: summonPortalOffset.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8947541240953402815, guid: 1dcbee1052ccf0340874bbd9a2293b42,
+        type: 3}
+      propertyPath: portalOffset.z
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 8552781887001533289, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -583,7 +593,7 @@ PrefabInstance:
     - target: {fileID: 8552781887001533289, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.0000001
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8552781887001533289, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
@@ -635,6 +645,12 @@ PrefabInstance:
       propertyPath: refreshGravity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8552781887001533290, guid: 1dcbee1052ccf0340874bbd9a2293b42,
+        type: 3}
+      propertyPath: cube
+      value: 
+      objectReference: {fileID: 1490649955293442304, guid: b0a77767f12e6a14a803ca65e056e3dd,
+        type: 3}
     - target: {fileID: 8552781887001533292, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
       propertyPath: m_Name
@@ -735,6 +751,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1804125267 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8552781887001533292, guid: 1dcbee1052ccf0340874bbd9a2293b42,
+    type: 3}
+  m_PrefabInstance: {fileID: 1542402702}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1804125268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804125267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1c9d72d62283346aded75157a0efb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cube: {fileID: 7393770197891606565, guid: b0a77767f12e6a14a803ca65e056e3dd, type: 3}
+  MrCube: {fileID: 1955373560}
+  summonKey: c
+  removeKey: r
+  cubeOffset: {x: 0, y: 0, z: 1}
+  cubePos: {x: 0, y: 0, z: 0}
+  getOffset: {x: 0, y: 0, z: 0}
 --- !u!4 &1955373560 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8552781887001533289, guid: 1dcbee1052ccf0340874bbd9a2293b42,

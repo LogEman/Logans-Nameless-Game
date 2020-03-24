@@ -195,7 +195,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Pre-Alpha 0.4.2\n\xA9 2020 Logan Kessler GPL-3.0\n"
+  m_Text: "Pre-Alpha 0.4.3\n\xA9 2020 Logan Kessler GPL-3.0\n"
 --- !u!222 &517633332
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -651,6 +651,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1490649955293442304, guid: b0a77767f12e6a14a803ca65e056e3dd,
         type: 3}
+    - target: {fileID: 8552781887001533290, guid: 1dcbee1052ccf0340874bbd9a2293b42,
+        type: 3}
+      propertyPath: statsText
+      value: 
+      objectReference: {fileID: 1577749884}
     - target: {fileID: 8552781887001533292, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
       propertyPath: m_Name
@@ -658,6 +663,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dcbee1052ccf0340874bbd9a2293b42, type: 3}
+--- !u!114 &1577749884 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4839094666311048931, guid: 1c2911e16a2142f43bcc0f6aaf61436c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4839094666570639868}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1777985187
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MrNameLessCube : MonoBehaviour
 {
-    public GameObject cube;
+    public Button reset;
+    public Rigidbody cube;
     private GameObject[] cubes;
     private int cubeCountMax;
     public Vector3 getPos;
@@ -65,10 +67,12 @@ public class MrNameLessCube : MonoBehaviour
     //reference to the  
     NamelessPortal portal;
     private int cubeCountCurrent;
-
+    
     // Start is called before the first frame update
     public void Start()
     {
+        Button resetEvent = reset.GetComponent<Button>();
+        resetEvent.onClick.AddListener(TaskOnClick);
         NamelessPortal portal = new NamelessPortal();
         //Initiating the Vector for Mr.Nameless cube's spawn point
         spawnPoint = new Vector3(0, 1, 0);
@@ -221,7 +225,7 @@ public class MrNameLessCube : MonoBehaviour
             currentJump = 0;
             jumpReset = false;
         }
-
+        
 
     }
     //Put things for physics here
@@ -260,6 +264,10 @@ public class MrNameLessCube : MonoBehaviour
         }
         if (collisionInfo.collider.tag == "isFood")
         {
+            if (hunger <= 20)
+            {
+                Destroy(collisionInfo.gameObject);
+            }
             //determines what to do with food
             if (hunger <= 20f && health < 20f)
             {
@@ -270,10 +278,7 @@ public class MrNameLessCube : MonoBehaviour
                 hunger = hunger + maxHunger - hunger;
             }
 
-            if (hunger <= 20)
-            {
-                Destroy(collisionInfo.gameObject);
-            }
+          
         }
     }
     void SaveData()
@@ -330,9 +335,14 @@ public class MrNameLessCube : MonoBehaviour
         backwardKey = PlayerPrefs.GetString("mrcube-backwardkey", "s");
         jumpKey = PlayerPrefs.GetString("mrcube-jumpkey", "space");
     }
+    void TaskOnClick()
+    {
+        SceneManager.LoadScene("Logan's Namless Game");
+        PlayerPrefs.DeleteAll();
+    }
     void OnApplicationQuit()
     {
         SaveData();
     }
-
+    
 }

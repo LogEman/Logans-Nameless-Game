@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2148881692836610440}
   - component: {fileID: 4668168304542263773}
   - component: {fileID: 631590150619630324}
-  - component: {fileID: 7393770197891606565}
+  - component: {fileID: -3760887613373690887}
   m_Layer: 0
   m_Name: Nameless Cube
   m_TagString: isCube
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1490649955293442304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 174.27094, y: 1.5069045, z: 298.7719}
+  m_LocalPosition: {x: -9.815719, y: 1.0336149, z: -44.739513}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &7393770197891606565
+--- !u!54 &-3760887613373690887
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

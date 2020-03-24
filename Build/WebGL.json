@@ -1,7 +1,7 @@
 {
 "companyName": "Logan's Nameless Company",
 "productName": "Logan's Nameless Game",
-"productVersion": "0.1",
+"productVersion": "0.4.2",
 "dataUrl": "WebGL.data.unityweb",
 "wasmCodeUrl": "WebGL.wasm.code.unityweb",
 "wasmFrameworkUrl": "WebGL.wasm.framework.unityweb",

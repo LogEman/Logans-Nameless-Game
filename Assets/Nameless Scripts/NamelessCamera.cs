@@ -9,6 +9,7 @@ public class NamelessCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MrNameLessCube = GameObject.FindGameObjectWithTag("isMrCube").transform;
         //initializing cameraOffset as a vector and setting default
         cameraOffset = new Vector3(0.0f, 0.0f, 0.0f);
         cameraOffset.Set(0f, 1f, -5f);

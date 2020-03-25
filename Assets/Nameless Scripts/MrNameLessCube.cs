@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class MrNameLessCube : MonoBehaviour
 {
+    public GameObject enemy;
+    public float enemyHealth = 20f;
+    public string attackKey = "b";
+    public float attackDamage = 1f;
+    public double healthScore;
+    public float dps = 3;
     public Button reset;
     public Rigidbody cube;
     private GameObject[] cubes;
@@ -90,25 +96,24 @@ public class MrNameLessCube : MonoBehaviour
         refreshGravity = true;
         //Initiating Mr.Nameless cube's health values
 
-        health = 21f;
-        hunger = 21f;
+        health = 20f;
+        hunger = 20f;
         alive = true;
         LoadData();
-
+        healthScore = System.Math.Round(health, 0);
     }
     // Update is called once per frame
     public void Update()
     {
-
         //Shows the stats of Mr.Nameless Cube on screen
-        statsText.text = "Health: " + health.ToString() + " Hunger: " + hunger.ToString();
+        statsText.text = "Health: " + healthScore.ToString() + " Hunger: " + hunger.ToString();
         //Kills Mr.Nameless Cube if he falls into the void
         if (mrcube.position.y < 0)
         {
             health = 0;
         }
         //tests if Mr.Nameless cube is still alive
-        if (health > 0f)
+        if (health >= 1)
         {
             alive = true;
         }
@@ -135,6 +140,7 @@ public class MrNameLessCube : MonoBehaviour
         //adjusts variables based on your computer power
         if (!computerCheck)
         {
+            dps = dps * Time.deltaTime;
             foodTime = foodTime / Time.deltaTime;
             decreaseHealth = decreaseHealth / Time.deltaTime;
             decreaseHunger = decreaseHunger / Time.deltaTime;
@@ -257,7 +263,7 @@ public class MrNameLessCube : MonoBehaviour
     private void OnCollisionEnter(Collision collisionInfo)
     {
         //checks if the thing Mr.Nameless cube collided with has the canResetJump tag
-        if (collisionInfo.collider.tag == "canResetJump")
+        if (collisionInfo.collider.tag == "canResetJump" || collisionInfo.collider.tag == "isCube")
         {
             //sets jumpReset bool to true
             jumpReset = true;
@@ -305,12 +311,15 @@ public class MrNameLessCube : MonoBehaviour
         PlayerPrefs.SetFloat("mrcube-spawn-z", spawnPoint.z);
         PlayerPrefs.SetFloat("mrcube-weight", weight);
         PlayerPrefs.SetFloat("planet-gravity", gravity);
+        PlayerPrefs.SetFloat("mrcube-y-force", yForce);
+        PlayerPrefs.SetFloat("mrcube-max-jump", maxJump);
         PlayerPrefs.SetString("mrcube-leftkey", leftKey);
         PlayerPrefs.SetString("mrcube-rightkey", rightKey);
         PlayerPrefs.SetString("mrcube-forwardkey", forwardKey);
         PlayerPrefs.SetString("mrcube-backwardkey", backwardKey);
         PlayerPrefs.SetString("mrcube-jumpkey", jumpKey);
     }
+
     void LoadData()
     {
         cubeCountCurrent = 1;
@@ -323,8 +332,8 @@ public class MrNameLessCube : MonoBehaviour
         //Loads all the data
         Vector3 getPos = new Vector3(PlayerPrefs.GetFloat("mrcube-pos-x", 0), PlayerPrefs.GetFloat("mrcube-pos-y", 1), PlayerPrefs.GetFloat("mrcube-pos-z", 0));
         transform.position = getPos;
-        health = PlayerPrefs.GetFloat("mrcube-health", 21);
-        hunger = PlayerPrefs.GetFloat("mrcube-hunger", 21);
+        health = PlayerPrefs.GetFloat("mrcube-health", 20);
+        hunger = PlayerPrefs.GetFloat("mrcube-hunger", 20);
         Vector3 getSpawn = new Vector3(PlayerPrefs.GetFloat("mrcube-spawn-x", 0), PlayerPrefs.GetFloat("mrcube-spawn-y", 1), PlayerPrefs.GetFloat("mrcube-spawn-z", 0));
         spawnPoint = getSpawn;
         weight = PlayerPrefs.GetFloat("mrcube-weight", 1);
@@ -334,6 +343,8 @@ public class MrNameLessCube : MonoBehaviour
         forwardKey = PlayerPrefs.GetString("mrcube-forwardkey", "w");
         backwardKey = PlayerPrefs.GetString("mrcube-backwardkey", "s");
         jumpKey = PlayerPrefs.GetString("mrcube-jumpkey", "space");
+        yForce = PlayerPrefs.GetFloat("mrcube-y-force");
+        maxJump = PlayerPrefs.GetFloat("mrcube-max-jump");
     }
     void TaskOnClick()
     {
@@ -344,5 +355,26 @@ public class MrNameLessCube : MonoBehaviour
     {
         SaveData();
     }
-    
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.collider.tag == "isEnemy")
+        {
+            health = health - dps;
+            healthScore = System.Math.Round(health, 0);
+            attemptAttackEnemy();
+        }
+
+    }
+    void attemptAttackEnemy()
+    {
+        if(Input.GetKeyDown(attackKey)){
+            enemyHealth = enemyHealth - attackDamage;
+        }
+        if(enemyHealth <= 0)
+        {
+            Destroy(GameObject.FindGameObjectWithTag("isEnemy"));
+            Instantiate(enemy, new Vector3(1, 1, -20), Quaternion.identity);
+            enemyHealth = 20f;
+        }
+    }
 }

@@ -125,9 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0736455b356220f428df23f5d296095e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeOffset: {x: 0, y: 0, z: 0}
-  cube: {fileID: 7393770197891606565, guid: b0a77767f12e6a14a803ca65e056e3dd, type: 3}
-  summonKey: c
+  reset: {fileID: 592380545858751166, guid: 3664311809fe37645bcca6ce00f79648, type: 3}
+  cube: {fileID: -3760887613373690887, guid: b0a77767f12e6a14a803ca65e056e3dd, type: 3}
   getPos: {x: 0, y: 0, z: 0}
   getSpawn: {x: 0, y: 0, z: 0}
   exitPortal: {x: 0, y: 0, z: 0}
@@ -169,8 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25b64920fb74e274189afdac4f4e87ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getPortalOffset: {x: 0, y: 0, z: 0}
-  getSummonPortalOffset: {x: 0, y: 0, z: 0}
   doIt: 0
   targetPortal: {fileID: 0}
   summonPortalOffset: {x: 0, y: 0, z: 0}

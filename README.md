@@ -2,7 +2,7 @@
 
 A game without a name © 2020 Logan Kessler Licensed under GPL-3.0
 
-WebGL Pre-Alpha 0.5.0 Unity Web Build
+WebGL Pre-Alpha 0.6.0 Unity Web Build
 
 Try the game out here:
 

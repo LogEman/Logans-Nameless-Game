@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class MrNameLessCube : MonoBehaviour
 {
     public GameObject enemy;
-    public float enemyHealth = 20f;
+    private int enemyCountMax;
+    private int newEnemyCountMax;
     public string attackKey = "b";
     public float attackDamage = 1f;
     public double healthScore;
@@ -14,6 +15,7 @@ public class MrNameLessCube : MonoBehaviour
     public Button reset;
     public Rigidbody cube;
     private GameObject[] cubes;
+    private GameObject[] enemies;
     private int cubeCountMax;
     public Vector3 getPos;
     public Vector3 getSpawn;
@@ -73,6 +75,7 @@ public class MrNameLessCube : MonoBehaviour
     //reference to the  
     NamelessPortal portal;
     private int cubeCountCurrent;
+    private int enemyCountCurrent;
     
     // Start is called before the first frame update
     public void Start()
@@ -95,7 +98,6 @@ public class MrNameLessCube : MonoBehaviour
         //Initiating the value of refresh gravity
         refreshGravity = true;
         //Initiating Mr.Nameless cube's health values
-
         health = 20f;
         hunger = 20f;
         alive = true;
@@ -105,6 +107,7 @@ public class MrNameLessCube : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        enemyCountMax = GameObject.FindGameObjectsWithTag("isEnemy").Length;
         //Shows the stats of Mr.Nameless Cube on screen
         statsText.text = "Health: " + healthScore.ToString() + " Hunger: " + hunger.ToString();
         //Kills Mr.Nameless Cube if he falls into the void
@@ -151,13 +154,18 @@ public class MrNameLessCube : MonoBehaviour
         if (currentFoodTime > 0f)
         {
             --currentFoodTime;
-
         }
         else
         {
             currentFoodTime = foodTime;
             Instantiate(food, new Vector3(Random.Range(-1000, 1000), 2, Random.Range(-1000, 1000)), Quaternion.identity);
+            Instantiate(enemy, new Vector3(Random.Range(-1000, 1000), 2, Random.Range(-1000, 1000)), Quaternion.identity);
             PlayerPrefs.Save();
+        }
+        newEnemyCountMax = enemyCountMax + 1;
+        if (GameObject.FindGameObjectWithTag("enemyInit") != null) {
+            GameObject.FindGameObjectWithTag("enemyInit").name = "enemy" + newEnemyCountMax.ToString();
+            GameObject.FindGameObjectWithTag("enemyInit").tag = "isEnemy";
         }
         if (decreaseHungerCurrent <= 0f && hunger > 0f)
         {
@@ -231,8 +239,6 @@ public class MrNameLessCube : MonoBehaviour
             currentJump = 0;
             jumpReset = false;
         }
-        
-
     }
     //Put things for physics here
     void FixedUpdate()
@@ -300,6 +306,16 @@ public class MrNameLessCube : MonoBehaviour
             PlayerPrefs.SetFloat("cube" + cubeCountCurrent.ToString() + "-position-z", cubes[cubeCountCurrent].transform.position.z);
             cubeCountCurrent++;
         }
+        PlayerPrefs.SetInt("enemy-count-max", enemyCountMax);
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("isEnemy");
+        enemyCountCurrent = 1;
+        while (enemyCountCurrent <= enemyCountMax)
+        {
+            PlayerPrefs.SetFloat("enemy" + enemyCountCurrent.ToString() + "-position-x", enemies[enemyCountCurrent].transform.position.x);
+            PlayerPrefs.SetFloat("enemy" + enemyCountCurrent.ToString() + "-position-y", enemies[enemyCountCurrent].transform.position.y);
+            PlayerPrefs.SetFloat("enemy" + enemyCountCurrent.ToString() + "-position-z", enemies[enemyCountCurrent].transform.position.z);
+            enemyCountCurrent++;
+        }
         //Saves all the data
         PlayerPrefs.SetFloat("mrcube-pos-x", mrcube.position.x);
         PlayerPrefs.SetFloat("mrcube-pos-y", mrcube.position.y);
@@ -329,6 +345,14 @@ public class MrNameLessCube : MonoBehaviour
             Instantiate(cube, new Vector3(PlayerPrefs.GetFloat("cube" + cubeCountCurrent.ToString() + "-position-x"), PlayerPrefs.GetFloat("cube" + cubeCountCurrent.ToString() + "-position-y"), PlayerPrefs.GetFloat("cube" + cubeCountCurrent.ToString() + "-position-z")), Quaternion.identity);
             cubeCountCurrent++;
         }
+        enemyCountCurrent = 1;
+        enemyCountMax = PlayerPrefs.GetInt("enemy-count-max");
+        while (enemyCountCurrent <= enemyCountMax)
+        {
+            Instantiate(enemy, new Vector3(PlayerPrefs.GetFloat("enemy" + enemyCountCurrent.ToString() + "-position-x"), PlayerPrefs.GetFloat("enemy" + enemyCountCurrent.ToString() + "-position-y"), PlayerPrefs.GetFloat("enemy" + enemyCountCurrent.ToString() + "-position-z")), Quaternion.identity);
+            GameObject.FindGameObjectWithTag("enemyInit").name = "enemy" + enemyCountMax + 1.ToString();
+            enemyCountCurrent++;
+        }
         //Loads all the data
         Vector3 getPos = new Vector3(PlayerPrefs.GetFloat("mrcube-pos-x", 0), PlayerPrefs.GetFloat("mrcube-pos-y", 1), PlayerPrefs.GetFloat("mrcube-pos-z", 0));
         transform.position = getPos;
@@ -343,8 +367,9 @@ public class MrNameLessCube : MonoBehaviour
         forwardKey = PlayerPrefs.GetString("mrcube-forwardkey", "w");
         backwardKey = PlayerPrefs.GetString("mrcube-backwardkey", "s");
         jumpKey = PlayerPrefs.GetString("mrcube-jumpkey", "space");
-        yForce = PlayerPrefs.GetFloat("mrcube-y-force");
+        yForce = PlayerPrefs.GetFloat("mrcube-y-force", 1350);
         maxJump = PlayerPrefs.GetFloat("mrcube-max-jump");
+
     }
     void TaskOnClick()
     {
@@ -361,20 +386,15 @@ public class MrNameLessCube : MonoBehaviour
         {
             health = health - dps;
             healthScore = System.Math.Round(health, 0);
-            attemptAttackEnemy();
+            if (Input.GetKeyDown(attackKey))
+            {
+                PlayerPrefs.SetFloat(collision.collider.name + "health", PlayerPrefs.GetFloat(collision.collider.name + "health", 20) - attackDamage);
+                if (PlayerPrefs.GetFloat(collision.collider.name + "health", 20) <= 0)
+                {
+                    Destroy(collision.collider.gameObject);
+                }
+            }
         }
 
-    }
-    void attemptAttackEnemy()
-    {
-        if(Input.GetKeyDown(attackKey)){
-            enemyHealth = enemyHealth - attackDamage;
-        }
-        if(enemyHealth <= 0)
-        {
-            Destroy(GameObject.FindGameObjectWithTag("isEnemy"));
-            Instantiate(enemy, new Vector3(1, 1, -20), Quaternion.identity);
-            enemyHealth = 20f;
-        }
     }
 }

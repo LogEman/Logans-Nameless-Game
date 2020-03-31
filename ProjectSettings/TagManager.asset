@@ -12,6 +12,7 @@ TagManager:
   - isActivePortal
   - willBeCube
   - isEnemy
+  - enemyInit
   layers:
   - Default
   - TransparentFX

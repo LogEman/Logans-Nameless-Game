@@ -328,7 +328,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Pre-Alpha 0.7.0\n\xA9 2020 Logan Kessler GPL-3.0\n"
+  m_Text: "Pre-Alpha 0.7.1\n\xA9 2020 Logan Kessler GPL-3.0\n"
 --- !u!222 &517633332
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -664,7 +664,7 @@ PrefabInstance:
     - target: {fileID: 8552781887001533290, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
       propertyPath: yForce
-      value: 1000
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 8552781887001533290, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
@@ -674,12 +674,12 @@ PrefabInstance:
     - target: {fileID: 8552781887001533290, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
       propertyPath: xForce
-      value: 1000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8552781887001533290, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}
       propertyPath: zForce
-      value: 1000
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 8552781887001533290, guid: 1dcbee1052ccf0340874bbd9a2293b42,
         type: 3}

@@ -327,8 +327,6 @@ public class MrNameLessCube : MonoBehaviour
         PlayerPrefs.SetFloat("mrcube-spawn-z", spawnPoint.z);
         PlayerPrefs.SetFloat("mrcube-weight", weight);
         PlayerPrefs.SetFloat("planet-gravity", gravity);
-        PlayerPrefs.SetFloat("mrcube-y-force", yForce);
-        PlayerPrefs.SetFloat("mrcube-max-jump", maxJump);
         PlayerPrefs.SetString("mrcube-leftkey", leftKey);
         PlayerPrefs.SetString("mrcube-rightkey", rightKey);
         PlayerPrefs.SetString("mrcube-forwardkey", forwardKey);
@@ -367,9 +365,6 @@ public class MrNameLessCube : MonoBehaviour
         forwardKey = PlayerPrefs.GetString("mrcube-forwardkey", "w");
         backwardKey = PlayerPrefs.GetString("mrcube-backwardkey", "s");
         jumpKey = PlayerPrefs.GetString("mrcube-jumpkey", "space");
-        yForce = PlayerPrefs.GetFloat("mrcube-y-force", 1350);
-        maxJump = PlayerPrefs.GetFloat("mrcube-max-jump");
-
     }
     void TaskOnClick()
     {
